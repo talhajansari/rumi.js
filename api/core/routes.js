@@ -49,13 +49,13 @@ methods.responseUnauthorized = function(res) {
 
 methods.authenticateToken = function (req, res, next) {
   return router.methods.isAuthorized(req, res, 
-  	function(is_authenticated, decoded) {
-  		if (!is_authenticated) {
-  			return router.methods.responseUnauthorized(res);
-  		}
-  		req.session_object = decoded;
-  		return next();
-  	});
+    function(is_authenticated, decoded) {
+      if (!is_authenticated) {
+        return router.methods.responseUnauthorized(res);
+      }
+      req.session_object = decoded;
+      return next();
+    });
 }
 
 /**
@@ -70,15 +70,15 @@ methods.isAuthorized = function (req, res, cb) {
   jwt.verify(token, req.app.get('superSecret'), function(err, decoded){
     
     if (err) { 
-    	return cb(false, null);
+      return cb(false, null);
     }
     if (!decoded) {
-    	return cb(false, null);
+      return cb(false, null);
     }
 
     if (!decoded.is_active) {
-    	console.log("something worng");
-    	return cb(false, null);
+      console.log("something worng");
+      return cb(false, null);
     }
 
     return cb(true, decoded);
@@ -94,7 +94,7 @@ methods.isAuthorized = function (req, res, cb) {
 methods.isAuthenticated = function (req, res, cb) {
   
   if (req.session_object && req.session_object.user && req.session_object.user_type) {
-  	return cb();
+    return cb();
   }
   return router.methods.responseError('Token not authenticated!')
 }
@@ -117,7 +117,7 @@ router.use(function(req, res, next) {
  Test Routes
 ===============================================================================*/
 router.get('/ping', function(req, res) {
-	console.log(req.session_object);
+  console.log(req.session_object);
   router.methods.responseData(res, "Pong");
 });
 
@@ -130,7 +130,14 @@ router.post('/ping', function(req, res) {
  Include Routes
 ==============================================================================*/
 
-require('./todo')(router);
+var normalizedPath = require("path").join(__dirname,"../routes/");
+console.log(normalizedPath);
+
+require("fs").readdirSync(normalizedPath).forEach(function(file) {
+  console.log("Including Routes: " + normalizedPath + file)
+  require("../routes/" + file);
+});
+
 
 /* =============================================================================
 End

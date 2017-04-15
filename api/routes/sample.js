@@ -1,8 +1,8 @@
-var Todo = require('./../models/TodoModel');
+var Sample = require('./../models/SampleModel');
 
 module.exports = function (router) {
 
-	router.get('/todos', function(req, res) {
+	router.get('/sample', function(req, res) {
 	  // use mongoose to get all todos in the database
 	  Todo.find(function(err, todos) {
 	      // if there is an error retrieving, send the error. nothing after res.send(err) will execute
