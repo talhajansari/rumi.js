@@ -1,0 +1,25 @@
+{
+  "name": "rumi.js.client",
+  "version": "0.1.0",
+  "authors": [
+    "Talha Ansari <info@talha.io>"
+  ],
+  "description": "A ready to use a MEAN app skeleton Framework using Angular 2.0",
+  "moduleType": [
+    "es7"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "public/vendor/bower_components"
+  ],
+  "homepage": "https://github.com/talhajansari/rumi.js",
+  "main": "",
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
